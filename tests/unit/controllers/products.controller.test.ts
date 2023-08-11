@@ -35,4 +35,18 @@ describe('ProductsController', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productsMocks.createResponse);
   });
+
+  it('Testa se retorna SUCCESFUL / status 200, ao listar produtos', async function () {
+    const serviceResponse: ServiceResponse<Array<object>> = {
+      status: 'SUCCESSFUL',
+      data: productsMocks.getAllResponse,
+    };
+
+    sinon.stub(productsService, 'getAll').resolves(serviceResponse);
+
+    await productsController.getAll(req,res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(productsMocks.getAllResponse);
+  });
 });

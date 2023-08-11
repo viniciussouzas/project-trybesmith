@@ -19,4 +19,15 @@ describe('ProductsService', function () {
     expect(status).to.eq('CREATED');
     expect(data).to.be.deep.eq(mockCreateReturn.dataValues);
   });
+
+  it('Testa se a função getAll retorna o status e data esperados', async function () {
+    const mockGetAllReturn = productsMocks.getAllResponse.map((product) => ProductModel.build(product));
+
+    sinon.stub(ProductModel, 'findAll').resolves(mockGetAllReturn);
+
+    const { status, data } = await productsService.getAll();
+
+    expect(status).to.eq('SUCCESSFUL');
+    expect(data).to.be.deep.eq(mockGetAllReturn);
+  });
 });

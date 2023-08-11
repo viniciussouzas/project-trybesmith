@@ -8,6 +8,13 @@ const create = async (newProduct: Product) : Promise<ServiceResponse<Product>> =
   return { status: 'CREATED', data: product.dataValues };
 };
 
+const getAll = async () : Promise<ServiceResponse<Array<object>>> => {
+  const products = await ProductModel.findAll();
+
+  return { status: 'SUCCESSFUL', data: products };
+};
+
 export default {  
   create,
+  getAll,
 };
